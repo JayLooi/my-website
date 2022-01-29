@@ -17,9 +17,9 @@ const skills = [{
   list: ['MATLAB', 'Vector CANoe', 'Solidworks', 'Gazebo']
 }];
 
-const briefIntro = 'Hi, I\'m Looi Kian Seong. \n \
-                    I am a highly motivated Software Engineer with focus on Embedded System, Robotics and Automotive. \n  \
-                    I always get myself immersed in variety of interesting software projects. ';
+const briefIntro = 'Hi, I\'m Looi Kian Seong. \n' +
+                    'I am a highly motivated Software Engineer with focus on Embedded System, Robotics and Automotive. \n' + 
+                    'I always get myself immersed in variety of interesting software projects. ';
 
 class About extends React.Component {
    constructor (props) {
