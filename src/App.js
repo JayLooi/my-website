@@ -23,7 +23,7 @@ function App() {
   return (
     <div className='App'>
       <header className='App-header'>
-          <a href='/' className='App-logo'/>
+          <a href='/' className='App-logo'> </a>
           <Navbar navlinks={navlinks} contentTopOffset='70px'/>
       </header>
       
@@ -52,19 +52,19 @@ function App() {
           
           <ul>
             <li>
-              <a href='https://linkedin.com/in/kianseong' target='_blank'>
+              <a href='https://linkedin.com/in/kianseong' rel='noreferrer' target='_blank'>
                 <FontAwesomeIcon icon={faLinkedin} size='2x'/>
               </a>
             </li>
 
             <li>
-              <a href='https://github.com/JayLooi' target='_blank'>
+              <a href='https://github.com/JayLooi' rel='noreferrer' target='_blank'>
                 <FontAwesomeIcon icon={faGithub} size='2x'/>
               </a>
             </li>
 
             <li>
-              <a href='https://medium.com/@kslooi' target='_blank'>
+              <a href='https://medium.com/@kslooi' rel='noreferrer' target='_blank'>
                 <FontAwesomeIcon icon={faMedium} size='2x'/>
               </a>
             </li>
