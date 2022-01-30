@@ -1,0 +1,103 @@
+.Achievements-main {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    color: #ffffff;
+    align-items: center;
+}
+
+.Achievements-container {
+    display: table;
+    background-color: #393a3b;
+    border-radius: 10px;
+    border: solid 1px cyan;
+    width: 80%;
+    padding: 5%;
+    margin: 30px;
+}
+
+.Achievements-container::before {
+    content: '';
+    display: table-cell;
+    position: relative;
+    width: 1px;
+    height: 90%;
+    background-color: cyan;
+}
+
+.Achievements-contents {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+}
+
+.Achievements-contents > div {
+    margin-bottom: 30px;
+}
+
+.Achievements-content-header {
+    display: flex;
+    position: relative;
+    right: 28px;
+    flex-direction: row;
+    width: 100%;
+    min-height: 15px;
+    padding: 0px;
+}
+
+.Achievement-content-bullet {
+    margin-right: 14px;
+}
+
+.Achievement-content-bullet > div {
+    background-color: cyan;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+}
+
+.Achievements-content-title {
+    display: flex;
+    margin-top: -4px;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.Achievements-content-title > h3 {
+    padding: 0px;
+    margin: 0px;
+    font-size: 18px;
+    color: #ffffff;
+    margin-right: 50px;
+}
+
+.Achievements-content-title > h4 {
+    padding: 0px;
+    margin: 0px;
+    font-size: 14px;
+    color: cyan;
+}
+
+.Achievements-content-description {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin: 0px;
+}
+
+.Achievements-content-roles {
+    margin: 0;
+    padding-top: 0px;
+    padding-left: 10px;
+}
+
+.Achievements-content-roles::before {
+    content: 'Roles:';
+}
+
+.Achievements-content-roles > details {
+    padding-left: 20px;
+}
