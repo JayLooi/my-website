@@ -31,7 +31,7 @@ class Blog extends React.Component {
                let previewData = data.data;
             //    console.log(previewData);
                return {
-                   pubDate: new Date(blog.pubDate).toLocaleDateString('default', {day: 'numeric',year: 'numeric', month: 'long'}), 
+                   pubDate: new Date(blog.pubDate.replace(' ', 'T')).toLocaleDateString('default', {day: 'numeric',year: 'numeric', month: 'long'}), 
                    title: previewData.title, 
                    description: previewData.description,
                    img: previewData.image,
