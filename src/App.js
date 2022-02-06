@@ -8,6 +8,7 @@ import Home from './components/Home.js'
 import About from './components/About.js';
 import Background from './components/Background.js';
 import Achievements from './components/Achievements.js';
+import Blog from './components/Blog.js';
 import Contact from './components/Contact.js';
 
 import './App.css';
@@ -16,6 +17,7 @@ const navlinks = [
   { name: 'About', to: '/about' }, 
   { name: 'Background', to: '/background' }, 
   { name: 'Achievements', to: '/achievements' }, 
+  { name: 'Blog', to: '/blog' }
   // { name: 'Contact', to: '#contact' }, 
 ];
 
@@ -33,6 +35,7 @@ function App() {
           <Route path='About' element={<About/>}/>
           <Route path='Background' element={<Background/>}/>
           <Route path='Achievements' element={<Achievements/>}/>
+          <Route path='Blog' element={<Blog/>}/>
           <Route path='#Contact' element={<Contact/>}/>
         </Routes>
       </div>
