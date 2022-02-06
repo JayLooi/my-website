@@ -70,7 +70,7 @@ class Blog extends React.Component {
             {this.state.blogData.map((data, dataIndex) => {
                 return (
                     <div key={dataIndex} className='Blog-preview-content'>
-                        <a href={data.url} className='Blog-content-link'>
+                        <a href={data.url} className='Blog-content-link' rel='noreferrer' target='_blank'>
                             <img src={data.img.url} className='Blog-preview-image' alt=''/>
                             
                             <h1>
