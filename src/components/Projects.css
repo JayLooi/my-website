@@ -1,0 +1,38 @@
+.Projects-main {
+    background-color: inherit;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    color: #ffffff;
+    padding-bottom: 200px;
+    padding-top: 50px;
+}
+
+.Projects-item-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 30%;
+    margin: 20px;
+    padding: 2%;
+    background: #393a3b;
+    border-radius: 10px;
+}
+
+.Projects-title {
+    color: cyan;
+    font-size: 24px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.Projects-brief {
+    width: 100%;
+    padding-bottom: 10px;
+    text-align: center;
+    border-bottom: solid 1px cyan;
+}
