@@ -67,27 +67,33 @@ class Blog extends React.Component {
        return (
         <div className='Blog-main'>
             <div className='Blog-preview-list'>
-            {this.state.blogData.map((data, dataIndex) => {
-                return (
-                    <div key={dataIndex} className='Blog-preview-content'>
-                        <a href={data.url} className='Blog-content-link' rel='noreferrer' target='_blank'>
-                            <img src={data.img.url} className='Blog-preview-image' alt=''/>
-                            
-                            <h1>
-                                {data.title}
-                            </h1>
-                        </a>
+                {
+                    this.state.blogData.map((data, dataIndex) => {
+                        try {
+                            return (
+                                <div key={dataIndex} className='Blog-preview-content'>
+                                    <a href={data.url} className='Blog-content-link' rel='noreferrer' target='_blank'>
+                                        <img src={data.img.url} className='Blog-preview-image' alt=''/>
+                                        
+                                        <h1>
+                                            {data.title}
+                                        </h1>
+                                    </a>
 
-                        <p className='Blog-preview-description'>
-                            {data.description}
-                        </p>
+                                    <p className='Blog-preview-description'>
+                                        {data.description}
+                                    </p>
 
-                        <p className='Blog-content-pub-date'>
-                            ( {data.pubDate} )
-                        </p>
-                    </div>
-                );
-                })}
+                                    <p className='Blog-content-pub-date'>
+                                        ( {data.pubDate} )
+                                    </p>
+                                </div>
+                            );
+                        } catch {
+                            return null;
+                        }
+                    })
+                }
             </div>
 
             <a href='https://medium.com/@kslooi' className='Blog-findout-more' rel='noreferrer' target='_blank'>
