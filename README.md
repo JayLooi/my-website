@@ -9,9 +9,10 @@ Built using modern Javascript, JSX and CSS, based on [create-react-app](https://
 - [x] About
 - [x] Background
 - [x] Achievements
-- [ ] Projects
-- [ ] Blog
+- [x] Projects
+- [x] Blog
 - [ ] Technotes
 
 ### Improvements
 - [ ] Separate data from UI components
+- [ ] Refactor code to split reusable part as a module
