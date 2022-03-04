@@ -36,3 +36,15 @@
     text-align: center;
     border-bottom: solid 1px cyan;
 }
+
+@media only screen and (max-width: 700px) {
+    .Projects-main {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .Projects-item-container {
+        width: 90%;
+        margin: 5px;
+    }
+}
