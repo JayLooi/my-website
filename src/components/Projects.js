@@ -10,7 +10,7 @@ class Struct extends Function {
             if ((typeof(k) != "string") && (typeof(k) != "number")) {
                 throw new Error("Error: Invalid key. \nkey of Struct member should be string or number.");
             }
-        })
+        });
         return this._this;
     }
 
@@ -49,7 +49,7 @@ const projectsList = [
         'Remote Arduino', 
         'Hobbyist Project: Enable remote logging and OTA firmware update for Arduino UNO', 
         [
-            'Enabled minimal internet access for Arduino UNO via UART connection to ESP8266. ', 
+            'Established communication between Arduino UNO and ESP8266 via UART. ', 
             'Developed an MQTT client program for ESP8266 to communicate to remote host. ', 
             'Utilised a GPIO port of ESP8266 to control the reset line of Arduino UNO. ', 
             'Developed algorithm based on Optiboot (Arduino UNO\'s default bootloader) to update Arduino firmware through ESP8266 from remote host. ', 
@@ -58,9 +58,9 @@ const projectsList = [
     ),
     projectsStruct(
         'IoT System for Environment Monitoring', 
-        'Freelance Industry Project (Team): An IoT system to monitor environmental parameters near radio base station. ', 
+        'Industrial Project (Team-based): An IoT system to monitor environmental parameters near radio base station. ', 
         [
-            'Developed Python modules to interface with Honeywell Pm2.5 sensor, rain gauge and GPS connected to Raspberry Pi. ', 
+            'Developed Python modules to interface with Honeywell PM2.5 sensor, rain gauge and GPS connected to Raspberry Pi. ', 
             'Developed Python program to send sensors data from Raspberry Pi to backend server by using MQTT protocol. ', 
             'Created a bash script to setup MQTT broker in server. ', 
             'Developed an ExpressJS application to provide APIs for frontend to manage different devices (Raspberry Pi) in the MQTT broker. '
