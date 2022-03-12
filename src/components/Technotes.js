@@ -1,4 +1,5 @@
 import React from 'react';
+import './Technotes.css'
 
 class Technotes extends React.Component {
    constructor (props) {
@@ -15,18 +16,18 @@ class Technotes extends React.Component {
        return (
            fetch(url)
            .then(res => res.json())
-           .then(data => {
-               let contents = data.map(({name, url, type}) => {
+           .then(async (data) => {
+               let contents = data.map(async ({name, url, type}) => {
                    let content = {name, url, type};
                    if (type == 'dir') {
-                       this.fetchNotes(url)
-                       .then(data => content['children'] = data);
+                       const children = await this.fetchNotes(url)
+                       content['children'] = children;
                    }
 
                    return content;
                 });
-
-                return contents;
+                
+                return await Promise.all(contents);
             })
        );
    }
@@ -53,17 +54,43 @@ class Technotes extends React.Component {
        )
    };
 
+   renderContentTable = (contents) => {
+       return (
+           <ul>
+               {
+                   contents.map((content, index) => {
+                       return (
+                           <li key={index + content.name}>
+                               {
+                                   content.type == 'dir' ? 
+                                        <details>
+                                            <summary> { content.name } </summary>
+                                            { this.renderContentTable(content.children) }
+                                        </details> : 
+                                        <div> { content.name } </div>
+                               }
+                           </li>
+                       );
+                   })
+               }
+           </ul>
+       );
+   }
+
    renderContent = () => {
        return (
-           null
+           <div className='Technotes-main'>
+               {/* <div className='Technotes-toggle-contents-table'></div> */}
+               <div className='Technotes-content-header'></div>
+               <div className='Technotes-contents-table'> { this.renderContentTable(this.state.contents) } </div>
+               <div className='Technotes-content'></div>
+           </div>
        );
    }
 
    render () {
        return (
-           (this.state.contents.length == 0) ? 
-                this.renderDataLoadingView() :
-                this.renderContent()
+           (this.state.contents.length > 0 && this.renderContent()) || this.renderDataLoadingView()
        );
    }
 };
