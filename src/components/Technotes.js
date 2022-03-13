@@ -1,15 +1,23 @@
 import React from 'react';
-import './Technotes.css'
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import 'github-markdown-css/github-markdown-dark.css';
+import './Technotes.css';
 
 class Technotes extends React.Component {
    constructor (props) {
        super(props);
-       this.state = {contents: []};
+       this.state = {
+           contents: [], 
+           currentPageContent: '',
+           currentPageFullIndex: [], 
+           currentPageFullPath: ''
+        };
    }
 
    componentDidMount () {
-       this.fetchNotes('https://api.github.com/repos/JayLooi/my-website/contents')
-       .then(data => this.setState({contents: data}));
+       this.fetchNotes('https://api.github.com/repos/KOVERcjm/Technical_Notes/contents')
+       .then(data => this.setState({contents: data}, () => this.updateContent([])));
    }
 
    fetchNotes = (url) => {
@@ -17,8 +25,8 @@ class Technotes extends React.Component {
            fetch(url)
            .then(res => res.json())
            .then(async (data) => {
-               let contents = data.map(async ({name, url, type}) => {
-                   let content = {name, url, type};
+               let contents = data.map(async ({name, path, url, type, download_url}) => {
+                   let content = {name, path, url, type, download_url};
                    if (type == 'dir') {
                        const children = await this.fetchNotes(url)
                        content['children'] = children;
@@ -34,9 +42,9 @@ class Technotes extends React.Component {
 
    renderDataLoadingView = () => {
        return (
-           <div className='Technote-loading-container'>
+           <div className='Technotes-loading-container'>
                <div>
-                    <div className='Technote-loading-pattern'>
+                    <div className='Technotes-loading-pattern'>
                         <div/>
                         <div/>
                         <div/>
@@ -54,7 +62,7 @@ class Technotes extends React.Component {
        )
    };
 
-   renderContentTable = (contents) => {
+   renderContentTable = (contents, fullIndexRecorder) => {
        return (
            <ul>
                {
@@ -65,9 +73,11 @@ class Technotes extends React.Component {
                                    content.type == 'dir' ? 
                                         <details>
                                             <summary> { content.name } </summary>
-                                            { this.renderContentTable(content.children) }
+                                            { this.renderContentTable(content.children, [...fullIndexRecorder, index]) }
                                         </details> : 
-                                        <div> { content.name } </div>
+                                        <button onClick={() => this.updateContent([...fullIndexRecorder, index])}>
+                                            { content.name } 
+                                        </button>
                                }
                            </li>
                        );
@@ -77,20 +87,97 @@ class Technotes extends React.Component {
        );
    }
 
-   renderContent = () => {
+   updateContent = async (pageFullIndex) => {
+       const {currentPage, fullIndex} = await this.updateContentPagePath(pageFullIndex);
+       this.setState({currentPageFullIndex: fullIndex});
+
+       let currentContent = <h1> Welcome to my Technical Notes Page </h1>;
+
+       if (fullIndex.length > 0) {
+           if (currentPage.type == 'dir') {
+               currentContent = <h1> {currentPage.name} </h1>
+            } else if (currentPage.type == 'file') {
+                await fetch(currentPage.download_url)
+                .then(res => res.text())
+                .then(data => { currentContent = <ReactMarkdown children={data} remarkPlugins={[remarkGfm]}/> });
+            }
+       }
+
+       this.setState({currentPageContent: currentContent})
+   }
+
+   updateContentPagePath = async (pageFullIndex) => {
+       const lastIndex = pageFullIndex.length - 1;
+       let correctedFullIndex = [];
+       let currentPage = await pageFullIndex.reduce(
+           async (parentPromise, currPageIndex, index) => {
+               const parent = await parentPromise;
+               if (parent.type == 'file') {
+                   return Promise.resolve(parent);
+               }
+               let correctedCurrentPageIndex = currPageIndex < parent.length ? currPageIndex : parent.length - 1;
+               correctedFullIndex.push(correctedCurrentPageIndex);
+               let parentContent = parent[correctedCurrentPageIndex];
+               return Promise.resolve(
+                   (parentContent.type == 'dir' && index != lastIndex) ? 
+                   parentContent.children : parentContent
+                );
+           }, 
+           Promise.resolve(this.state.contents)
+        )
+        
+        let currentPageFullPath = ''
+        if (currentPage != null && currentPage != undefined && currentPage != this.state.contents) {
+            currentPageFullPath = currentPage.path;
+        }
+
+        this.setState({currentPageFullPath: currentPageFullPath});
+
+        return {currentPage: currentPage, fullIndex: correctedFullIndex};
+   }
+
+   renderContentHeader = () => {
+       return (
+           <>
+           <div>
+                <button onClick={() => this.updateContent([])}>
+                    Technical Notes
+                </button>
+            </div>
+            {
+                this.state.currentPageFullPath.split('/').map((name, index) => {
+                    return (
+                            name === ''? 
+                                null : 
+                                <div key={index + name}>
+                                    <span/>
+                                    <button onClick={() => this.updateContent(this.state.currentPageFullIndex.slice(0, index + 1))}>
+                                        {name}
+                                    </button>
+                                </div>
+                    );
+                })
+            }
+            </>
+       );
+   }
+
+   renderTechnotesPage = () => {
        return (
            <div className='Technotes-main'>
                {/* <div className='Technotes-toggle-contents-table'></div> */}
-               <div className='Technotes-content-header'></div>
-               <div className='Technotes-contents-table'> { this.renderContentTable(this.state.contents) } </div>
-               <div className='Technotes-content'></div>
+               <div className='Technotes-content-header'>
+                   { this.renderContentHeader() }
+               </div>
+               <div className='Technotes-contents-table'> { this.renderContentTable(this.state.contents, []) } </div>
+               <div className='markdown-body Technotes-content'> {this.state.currentPageContent} </div>
            </div>
        );
    }
 
    render () {
        return (
-           (this.state.contents.length > 0 && this.renderContent()) || this.renderDataLoadingView()
+           (this.state.contents.length > 0 && this.renderTechnotesPage()) || this.renderDataLoadingView()
        );
    }
 };
