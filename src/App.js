@@ -49,12 +49,10 @@ function App() {
             Looi Kian Seong
           </h3>
           
-          <p>
+          <div>
             <FontAwesomeIcon icon={faEnvelope} size='sm'/>
             <a className='Email' href='mailto:kianseong.looi@gmail.com'> kianseong.looi@gmail.com </a>
-          </p>
-
-          <hr/>
+          </div>
           
           <ul>
             <li>
