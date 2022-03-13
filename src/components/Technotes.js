@@ -16,7 +16,7 @@ class Technotes extends React.Component {
    }
 
    componentDidMount () {
-       this.fetchNotes('https://api.github.com/repos/KOVERcjm/Technical_Notes/contents')
+       this.fetchNotes('https://api.github.com/repos/jaylooi/technical-notes/contents')
        .then(data => this.setState({contents: data}, () => this.updateContent([])));
    }
 
