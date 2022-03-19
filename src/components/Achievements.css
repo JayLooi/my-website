@@ -8,7 +8,7 @@
 }
 
 .Achievements-container {
-    display: table;
+    display: flex;
     background-color: #393a3b;
     border-radius: 10px;
     border: solid 1px cyan;
@@ -19,10 +19,7 @@
 
 .Achievements-container::before {
     content: '';
-    display: table-cell;
-    position: relative;
     width: 1px;
-    height: 90%;
     background-color: cyan;
 }
 
