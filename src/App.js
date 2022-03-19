@@ -28,7 +28,7 @@ class App extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      
+      navDrawerOpened: false,
     };
   }
 
@@ -37,10 +37,10 @@ class App extends React.Component {
       <div className='App'>
         <header className='App-header'>
             <a href='/' className='App-logo'> </a>
-            <Navbar navlinks={navlinks}/>
+            <Navbar navlinks={navlinks} listenDrawerToggle={(drawerState) => this.setState({navDrawerOpened: drawerState})}/>
         </header>
         
-        <div className='App-content'>
+        <div className={this.state.navDrawerOpened ? 'App-content App-content-lock-scroll' : 'App-content'}>
           <Routes>
             <Route index path='/' element={<Home/>}/>
             <Route path='About' element={<About/>}/>
