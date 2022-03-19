@@ -29,7 +29,24 @@ class App extends React.Component {
     super(props);
     this.state = {
       navDrawerOpened: false,
+      showScrollToTopBtn: false
     };
+  }
+
+  componentDidMount () {
+    document.addEventListener('scroll', this.handleScroll)
+  }
+
+  handleScroll = () => {
+    if (window.scrollY >= window.innerHeight) {
+      if (!this.state.showScrollToTopBtn) {
+        this.setState({showScrollToTopBtn: true});
+      }
+    } else {
+      if (this.state.showScrollToTopBtn) {
+        this.setState({showScrollToTopBtn: false});
+      }
+    }
   }
 
   render () {
@@ -50,6 +67,14 @@ class App extends React.Component {
             <Route path='Projects' element={<Projects/>}/>
             <Route path='#Contact' element={<Contact/>}/>
           </Routes>
+
+          <button className={this.state.showScrollToTopBtn ? 'App-scroll-to-top-enabled' : 'App-scroll-to-top-disabled'} onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}>
+            <div>
+              <span/>
+              <span/>
+              <span/>
+            </div>
+          </button>
         </div>
 
         <footer className='App-footer'>
