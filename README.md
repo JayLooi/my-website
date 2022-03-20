@@ -11,7 +11,7 @@ Built using modern Javascript, JSX and CSS, based on [create-react-app](https://
 - [x] Achievements
 - [x] Projects
 - [x] Blog
-- [ ] Technotes
+- [x] Technotes
 
 ### Improvements
 - [ ] Separate data from UI components
