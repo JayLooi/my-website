@@ -3,19 +3,17 @@
 .Home-main {
     display: flex;
     width: 100%;
-    min-height: 80vh;
+    height: 100%;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    flex: 1 0 auto;
 }
 
 .Home-greeting-box {
-    /* margin-top: 20px; */
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 20px;
+    padding: 1.5rem;
     color: #20C20E;
     font-family: 'Aldrich';
 }
@@ -24,7 +22,7 @@
     display: flex;
     text-align: center;
     content: attr(data);
-    font-size: 50px;
+    font-size: 3rem;
 }
 
 @media only screen and (max-width: 700px) {

@@ -14,6 +14,7 @@ import Technotes from './components/Technotes.js';
 import Contact from './components/Contact.js';
 
 import './App.css';
+import React from 'react';
 
 const navlinks = [
   { name: 'About', to: '/about' }, 
@@ -25,65 +26,97 @@ const navlinks = [
   // { name: 'Contact', to: '#contact' }, 
 ];
 
-function App() {
-  return (
-    <div className='App'>
-      <header className='App-header'>
-          <a href='/' className='App-logo'> </a>
-          <Navbar navlinks={navlinks} contentTopOffset='70px'/>
-      </header>
-      
-      <div className='App-content'>
-        <Routes>
-          <Route index path='/' element={<Home/>}/>
-          <Route path='About' element={<About/>}/>
-          <Route path='Background' element={<Background/>}/>
-          <Route path='Achievements' element={<Achievements/>}/>
-          <Route path='Blog' element={<Blog/>}/>
-          <Route path='Projects' element={<Projects/>}/>
-          <Route path='Technotes' element={<Technotes/>}/>
-          <Route path='#Contact' element={<Contact/>}/>
-        </Routes>
-      </div>
+class App extends React.Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      navDrawerOpened: false,
+      showScrollToTopBtn: false
+    };
+  }
 
-      <footer className='App-footer'>
-        <div id='contact'>
-          <h3>
-            Looi Kian Seong
-          </h3>
-          
-          <p>
-            <FontAwesomeIcon icon={faEnvelope} size='sm'/>
-            <a className='Email' href='mailto:kianseong.looi@gmail.com'> kianseong.looi@gmail.com </a>
-          </p>
+  componentDidMount () {
+    document.addEventListener('scroll', this.handleScroll)
+  }
 
-          <hr/>
-          
-          <ul>
-            <li>
-              <a href='https://linkedin.com/in/kianseong' rel='noreferrer' target='_blank'>
-                <FontAwesomeIcon icon={faLinkedin} size='2x'/>
-              </a>
-            </li>
+  handleScroll = () => {
+    if (window.scrollY >= window.innerHeight) {
+      if (!this.state.showScrollToTopBtn) {
+        this.setState({showScrollToTopBtn: true});
+      }
+    } else {
+      if (this.state.showScrollToTopBtn) {
+        this.setState({showScrollToTopBtn: false});
+      }
+    }
+  }
 
-            <li>
-              <a href='https://github.com/JayLooi' rel='noreferrer' target='_blank'>
-                <FontAwesomeIcon icon={faGithub} size='2x'/>
-              </a>
-            </li>
+  render () {
+    return (
+      <div className='App'>
+        <header className='App-header'>
+            <a href='/' className='App-logo'> </a>
+            <Navbar navlinks={navlinks} listenDrawerToggle={(drawerState) => this.setState({navDrawerOpened: drawerState})}/>
+        </header>
+        
+        <div className={this.state.navDrawerOpened ? 'App-content App-content-lock-scroll' : 'App-content'}>
+          <Routes>
+            <Route index path='/' element={<Home/>}/>
+            <Route path='About' element={<About/>}/>
+            <Route path='Background' element={<Background/>}/>
+            <Route path='Achievements' element={<Achievements/>}/>
+            <Route path='Blog' element={<Blog/>}/>
+            <Route path='Projects' element={<Projects/>}/>
+            <Route path='Technotes' element={<Technotes/>}/>
+            <Route path='#Contact' element={<Contact/>}/>
+          </Routes>
 
-            <li>
-              <a href='https://medium.com/@kslooi' rel='noreferrer' target='_blank'>
-                <FontAwesomeIcon icon={faMedium} size='2x'/>
-              </a>
-            </li>
-          </ul>
-
-          <hr/>
+          <button className={this.state.showScrollToTopBtn ? 'App-scroll-to-top-enabled' : 'App-scroll-to-top-disabled'} onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}>
+            <div>
+              <span/>
+              <span/>
+              <span/>
+            </div>
+          </button>
         </div>
-      </footer>
-    </div>
-  );
+
+        <footer className='App-footer'>
+          <div id='contact'>
+            <h3>
+              Looi Kian Seong
+            </h3>
+            
+            <div>
+              <FontAwesomeIcon icon={faEnvelope} size='sm'/>
+              <a className='Email' href='mailto:kianseong.looi@gmail.com'> kianseong.looi@gmail.com </a>
+            </div>
+            
+            <ul>
+              <li>
+                <a href='https://linkedin.com/in/kianseong' rel='noreferrer' target='_blank'>
+                  <FontAwesomeIcon icon={faLinkedin} size='2x'/>
+                </a>
+              </li>
+
+              <li>
+                <a href='https://github.com/JayLooi' rel='noreferrer' target='_blank'>
+                  <FontAwesomeIcon icon={faGithub} size='2x'/>
+                </a>
+              </li>
+
+              <li>
+                <a href='https://medium.com/@kslooi' rel='noreferrer' target='_blank'>
+                  <FontAwesomeIcon icon={faMedium} size='2x'/>
+                </a>
+              </li>
+            </ul>
+
+            <hr/>
+          </div>
+        </footer>
+      </div>
+    );
+  }
 }
 
 export default App;
