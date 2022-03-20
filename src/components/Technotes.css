@@ -1,0 +1,437 @@
+.Technotes-main {
+    background-color: inherit;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(2, auto);
+    grid-template-areas: 
+        "header header header header header"
+        "sidebar main main main main";
+    width: 100%;
+    color: #ffffff;
+}
+
+.Technote-loading-container {
+    width: 100vw;
+    height: 100vh;
+    background-color: inherit;
+}
+
+.Technotes-content {
+    grid-area: main;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 2em;
+}
+
+.Technotes-header {
+    grid-area: header;
+    min-height: 2em;
+    border-top: solid 1px #18a7b1;
+    border-bottom: solid 1px #18a7b1;
+    flex-direction: row;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    background-color: inherit;
+}
+
+.Technotes-content-header {
+    flex-direction: row;
+    flex-wrap: wrap;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    background-color: inherit;
+}
+
+.Technotes-content-header > div {
+    padding-left: 1em;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 14px;
+}
+
+.Technotes-content-header > div > button {
+    border: none;
+    background-color: transparent;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 1em;
+    text-align: left;
+}
+
+.Technotes-content-header > div > span {
+    padding-right: 1em;
+}
+
+.Technotes-content-header > div > span::before {
+    content: '';
+    width: .5em;
+    height: .1em;
+    border-radius: .05em;
+    background-color: #afafba;
+    transform: rotate(45deg) translate(0, .1em);
+    transform-origin: center right;
+    display: flex;
+}
+
+.Technotes-content-header > div > span::after {
+    content: '';
+    width: .5em;
+    height: .1em;
+    border-radius: .05em;
+    background-color: #afafba;
+    transform: rotate(-45deg) translate(0, -.1em);
+    transform-origin: center right;
+    display: flex;
+}
+
+.Technotes-content-table-toggle-btn {
+    display: none;
+    background-color: transparent;
+    border: none;
+}
+
+.Technotes-open-contents-table-overlay {
+    display: none;
+    border: none;
+}
+
+.Technotes-contents-table {
+    grid-area: sidebar;
+    position: sticky;
+    top: 0;
+    padding-bottom: 15em;
+    box-sizing: border-box;
+    height: 100vh;
+    overflow-y: scroll;
+    background-color: inherit;
+}
+
+@media only screen and (max-width: 1400px) {
+    .Technotes-main {
+        grid-template-columns: repeat(7, 1fr);
+        grid-template-rows: repeat(2, auto);
+        grid-template-areas: 
+            "header header header header header header header"
+            "sidebar sidebar main main main main main";
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+    .Technotes-main {
+        grid-template-columns: repeat(6, 1fr);
+        grid-template-rows: repeat(2, auto);
+        grid-template-areas: 
+            "header header header header header header"
+            "sidebar sidebar main main main main";
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    .Technotes-main {
+        grid-template-areas: 
+            "header header header header header header"
+            "main main main main main main";
+    }
+
+    .Technotes-contents-table {
+        position: fixed;
+        width: 80%;
+        height: 100%;
+        left: -100%;
+        z-index: 1;
+    }
+
+    .Technotes-contents-table.open {
+        left: 0;
+    }
+
+    .Technotes-open-contents-table-overlay.open {
+        display: flex;
+        position: fixed;
+        width: 20%;
+        top: 0;
+        left: 80%;
+        bottom: 0;
+        right: 0;
+        background-color: #a0a0a0;
+        opacity: .3;
+        z-index: 2;
+        cursor: pointer;
+    }
+
+    .Technotes-content-table-toggle-btn {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        justify-content: center;
+        border-right: solid 1px cyan;
+        cursor: pointer;
+    }
+
+    .Technotes-content-table-toggle-btn > span {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin: .2em;
+    }
+
+    .Technotes-content-table-toggle-btn > span::before {
+        content: '';
+        display: flex;
+        width: .2em;
+        height: .2em;
+        border-radius: 50%;
+        background-color: #ffffff;
+    }
+
+    .Technotes-content-table-toggle-btn > span::after {
+        content: '';
+        display: flex;
+        width: 1em;
+        height: 1px;
+        margin-left: .2em;
+        background-color: #ffffff;
+    }
+}
+
+.Technotes-contents-table button {
+    border: none;
+    background-color: transparent;
+    color: #e0e0e0e0;
+    cursor: pointer;
+    font-size: .9em;
+    text-align: left;
+}
+
+.Technotes-contents-table button.active {
+    border: none;
+    background-color: transparent;
+    color: #18a7b1;
+}
+
+.Technotes-contents-table ul {
+    padding: 0;
+    margin-left: 1em;
+    margin-top: 1em;
+}
+
+.Technotes-contents-table li {
+    list-style: none;
+    margin-bottom: 1em;
+}
+
+.Technotes-contents-table summary {
+    cursor: pointer;
+    color: #e0e0e0;
+    font-size: .9em;
+    font-weight: bold;
+}
+
+.Technotes-contents-table::-webkit-scrollbar {
+  width: .75em;
+}
+
+.Technotes-contents-table::-webkit-scrollbar-track {
+  border-width: 0;
+}
+
+.Technotes-contents-table::-webkit-scrollbar-thumb {
+  background: #505050; 
+  border-radius: 10px;
+}
+
+/* Loading spinner */
+.Technotes-loading-container {
+    display: flex;
+    position: absolute;
+    top: 0;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.Technotes-loading-container > div {
+    color: #ffffff;
+    height: 32px;
+}
+
+.Technotes-loading-container > p {
+    font-weight: bold;
+    font-size: 12px;
+    color: rgb(42, 181, 185);
+}
+
+.Technotes-loading-container > p > span {
+    opacity: 0;
+    animation: loading-ellipsis 1.5s infinite;
+}
+
+.Technotes-loading-container > p > span:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.Technotes-loading-container > p > span:nth-child(2) {
+    animation-delay: .1s;
+}
+
+.Technotes-loading-container > p > span:nth-child(3) {
+    animation-delay: .2s;
+}
+
+@keyframes loading-ellipsis {
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+
+}
+
+.Technotes-loading-pattern {
+    display: grid;
+    grid-template-columns: 16px 16px;
+    grid-template-rows: 16px 16px;
+    row-gap: 2px;
+    column-gap: 2px;
+    animation-name: loading-spinner;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+}
+
+.Technotes-loading-pattern div {
+    width: 10px;
+    height: 10px;
+    background-color: cyan;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+}
+
+.Technotes-loading-pattern div:nth-child(1) {
+    margin-top: 0px;
+    margin-left: 0px;
+    animation-name: loading-spinner-topleft;
+}
+
+.Technotes-loading-pattern div:nth-child(2) {
+    margin-top: 0px;
+    margin-left: 6px;
+    animation-name: loading-spinner-topright;
+}
+
+.Technotes-loading-pattern div:nth-child(3) {
+    margin-top: 6px;
+    margin-left: 0px;
+    animation-name: loading-spinner-bottomleft;
+}
+
+.Technotes-loading-pattern div:nth-child(4) {
+    margin-top: 6px;
+    margin-left: 6px;
+    animation-name: loading-spinner-bottomright;
+}
+
+@keyframes loading-spinner-topleft {
+    12.5%, 37.5%, 62.5%, 87.5% {
+        margin-top: 6px;
+        margin-left: 6px;
+    }
+
+    25%, 50%, 75%, 100% {
+        margin-top: 0px;
+        margin-left: 0px;
+    }
+}
+
+@keyframes loading-spinner-topright {
+    12.5%, 37.5%, 62.5%, 87.5% {
+        margin-top: 6px;
+        margin-left: 0px;
+    }
+    
+    25%, 50%, 75%, 100% {
+        margin-top: 0px;
+        margin-left: 6px;
+    }
+}
+
+@keyframes loading-spinner-bottomleft {
+    12.5%, 37.5%, 62.5%, 87.5% {
+        margin-top: 0px;
+        margin-left: 6px;
+    }
+    
+    25%, 50%, 75%, 100% {
+        margin-top: 6px;
+        margin-left: 0px;
+    }
+}
+
+@keyframes loading-spinner-bottomright {
+    12.5%, 37.5%, 62.5%, 87.5% {
+        margin-top: 0px;
+        margin-left: 0px;
+    }
+    
+    25%, 50%, 75%, 100% {
+        margin-top: 6px;
+        margin-left: 6px;
+    }
+}
+
+@keyframes loading-spinner {
+    12.5% {
+        /* row-gap: 2px;
+        column-gap: 2px; */
+        transform: rotate(45deg);
+    }
+
+    25% {
+        /* row-gap: 12px;
+        column-gap: 12px; */
+        transform: rotate(90deg);
+    }
+
+    37.5% {
+        /* row-gap: 2px;
+        column-gap: 2px; */
+        transform: rotate(135deg);
+    }
+
+    50% {
+        /* row-gap: 12px;
+        column-gap: 12px; */
+        transform: rotate(180deg);
+    }
+
+    62.5% {
+        /* row-gap: 2px;
+        column-gap: 2px; */
+        transform: rotate(225deg);
+    }
+
+    75% {
+        /* row-gap: 12px;
+        column-gap: 12px; */
+        transform: rotate(270deg);
+    }
+
+    87.5% {
+        /* row-gap: 2px;
+        column-gap: 2px; */
+        transform: rotate(315deg);
+    }
+
+    100% {
+        /* row-gap: 12px;
+        column-gap: 12px; */
+        transform: rotate(360deg);
+    }
+}
