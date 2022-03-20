@@ -34,11 +34,11 @@ code, pre {
 .Technotes-content-header {
     grid-area: header;
     min-height: 2em;
-    border-top: solid 1px #52525e;
-    border-bottom: solid 1px #52525e;
+    border-top: solid 1px #18a7b1;
+    border-bottom: solid 1px #18a7b1;
     flex-direction: row;
+    flex-wrap: wrap;
     display: flex;
-    /* min-width: 100vw; */
     align-items: center;
     box-sizing: border-box;
     background-color: inherit;
@@ -60,11 +60,11 @@ code, pre {
     font-size: 1em;
 }
 
-.Technotes-content-header > div:nth-child(n+2) > span {
+.Technotes-content-header > div > span {
     padding-right: 1em;
 }
 
-.Technotes-content-header > div:nth-child(n+2) > span::before {
+.Technotes-content-header > div > span::before {
     content: '';
     width: .5em;
     height: .1em;
@@ -75,7 +75,7 @@ code, pre {
     display: flex;
 }
 
-.Technotes-content-header > div:nth-child(n+2) > span::after {
+.Technotes-content-header > div > span::after {
     content: '';
     width: .5em;
     height: .1em;
