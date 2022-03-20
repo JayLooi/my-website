@@ -11,7 +11,8 @@ class Technotes extends React.Component {
            contents: [], 
            currentPageContent: '',
            currentPageFullIndex: [], 
-           currentPageFullPath: ''
+           currentPageFullPath: '',
+           showContentTable: false,
         };
    }
 
@@ -30,6 +31,13 @@ class Technotes extends React.Component {
                    if (type == 'dir') {
                        const children = await this.fetchNotes(url)
                        content['children'] = children;
+                   } else if (type == 'file') {
+                       if (content.name.slice(-3).toLowerCase() == '.md') {
+                           content.name = content.name.slice(0, -3);
+                           content.path = content.path.slice(0, -3);
+                       } else {
+                           content.name = '';
+                       }
                    }
 
                    return content;
@@ -75,9 +83,11 @@ class Technotes extends React.Component {
                                             <summary> { content.name } </summary>
                                             { this.renderContentTable(content.children, [...fullIndexRecorder, index]) }
                                         </details> : 
-                                        <button onClick={() => this.updateContent([...fullIndexRecorder, index])}>
-                                            { content.name } 
-                                        </button>
+                                        content.name != '' ? 
+                                            <button className={content.path === this.state.currentPageFullPath ? 'active' : ''} onClick={() => this.updateContent([...fullIndexRecorder, index])}>
+                                                { content.name }
+                                            </button> : 
+                                            null
                                }
                            </li>
                        );
@@ -104,6 +114,10 @@ class Technotes extends React.Component {
        }
 
        this.setState({currentPageContent: currentContent})
+
+       if (window.innerWidth <= 700) {
+           this.openContentTable(false);
+       }
    }
 
    updateContentPagePath = async (pageFullIndex) => {
@@ -136,28 +150,41 @@ class Technotes extends React.Component {
         return {currentPage: currentPage, fullIndex: correctedFullIndex};
    }
 
+   openContentTable = (show) => {
+       this.setState({showContentTable: show});
+   }
+
    renderContentHeader = () => {
+       let pageFullPath = this.state.currentPageFullPath.split('/');
        return (
            <>
-           <div>
-                <button onClick={() => this.updateContent([])}>
-                    Technical Notes
-                </button>
+           <button className='Technotes-content-table-toggle-btn' onClick={() => this.openContentTable(true)}>
+                <span/>
+                <span/>
+                <span/>
+           </button>
+           <div className='Technotes-content-header'>
+               <div>
+                   <button onClick={() => this.updateContent([])}>
+                       Technical Notes
+                   </button>
+               </div>
+
+               {
+                   pageFullPath.map((name, index) => {
+                       return (
+                               name === '' ? 
+                                   null : 
+                                   <div key={index + name}>
+                                       <span/>
+                                       <button onClick={() => this.updateContent(this.state.currentPageFullIndex.slice(0, index + 1))}>
+                                           {name}
+                                       </button>
+                                   </div>
+                       );
+                   })
+               }
             </div>
-            {
-                this.state.currentPageFullPath.split('/').map((name, index) => {
-                    return (
-                            name === ''? 
-                                null : 
-                                <div key={index + name}>
-                                    <span/>
-                                    <button onClick={() => this.updateContent(this.state.currentPageFullIndex.slice(0, index + 1))}>
-                                        {name}
-                                    </button>
-                                </div>
-                    );
-                })
-            }
             </>
        );
    }
@@ -165,12 +192,26 @@ class Technotes extends React.Component {
    renderTechnotesPage = () => {
        return (
            <div className='Technotes-main'>
-               {/* <div className='Technotes-toggle-contents-table'></div> */}
-               <div className='Technotes-content-header'>
+               <div className='Technotes-header'>
                    { this.renderContentHeader() }
                </div>
-               <div className='Technotes-contents-table'> { this.renderContentTable(this.state.contents, []) } </div>
-               <div className='markdown-body Technotes-content'> {this.state.currentPageContent} </div>
+
+               <div className={window.innerWidth <= 700 && this.state.showContentTable ? 'Technotes-contents-table open' : 'Technotes-contents-table'}>
+                   { this.renderContentTable(this.state.contents, []) }
+               </div>
+
+               <div className='markdown-body Technotes-content'>
+                   {this.state.currentPageContent}
+               </div>
+
+               <button 
+                    className={
+                        this.state.showContentTable ? 
+                            'Technotes-open-contents-table-overlay open' : 
+                            'Technotes-open-contents-table-overlay'
+                    }
+                    onClick={() => this.openContentTable(false)}
+               />
            </div>
        );
    }
