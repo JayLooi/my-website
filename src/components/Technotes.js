@@ -28,11 +28,11 @@ class Technotes extends React.Component {
            .then(async (data) => {
                let contents = data.map(async ({name, path, url, type, download_url}) => {
                    let content = {name, path, url, type, download_url};
-                   if (type == 'dir') {
+                   if (type === 'dir') {
                        const children = await this.fetchNotes(url)
                        content['children'] = children;
-                   } else if (type == 'file') {
-                       if (content.name.slice(-3).toLowerCase() == '.md') {
+                   } else if (type === 'file') {
+                       if (content.name.slice(-3).toLowerCase() === '.md') {
                            content.name = content.name.slice(0, -3);
                            content.path = content.path.slice(0, -3);
                        } else {
@@ -78,12 +78,12 @@ class Technotes extends React.Component {
                        return (
                            <li key={index + content.name}>
                                {
-                                   content.type == 'dir' ? 
+                                   content.type === 'dir' ? 
                                         <details>
                                             <summary> { content.name } </summary>
                                             { this.renderContentTable(content.children, [...fullIndexRecorder, index]) }
                                         </details> : 
-                                        content.name != '' ? 
+                                        content.name !== '' ? 
                                             <button className={content.path === this.state.currentPageFullPath ? 'active' : ''} onClick={() => this.updateContent([...fullIndexRecorder, index])}>
                                                 { content.name }
                                             </button> : 
@@ -104,9 +104,9 @@ class Technotes extends React.Component {
        let currentContent = <h1> Welcome to my Technical Notes Page </h1>;
 
        if (fullIndex.length > 0) {
-           if (currentPage.type == 'dir') {
+           if (currentPage.type === 'dir') {
                currentContent = <h1> {currentPage.name} </h1>
-            } else if (currentPage.type == 'file') {
+            } else if (currentPage.type === 'file') {
                 await fetch(currentPage.download_url)
                 .then(res => res.text())
                 .then(data => { currentContent = <ReactMarkdown children={data} remarkPlugins={[remarkGfm]}/> });
@@ -126,14 +126,14 @@ class Technotes extends React.Component {
        let currentPage = await pageFullIndex.reduce(
            async (parentPromise, currPageIndex, index) => {
                const parent = await parentPromise;
-               if (parent.type == 'file') {
+               if (parent.type === 'file') {
                    return Promise.resolve(parent);
                }
                let correctedCurrentPageIndex = currPageIndex < parent.length ? currPageIndex : parent.length - 1;
                correctedFullIndex.push(correctedCurrentPageIndex);
                let parentContent = parent[correctedCurrentPageIndex];
                return Promise.resolve(
-                   (parentContent.type == 'dir' && index != lastIndex) ? 
+                   (parentContent.type === 'dir' && index !== lastIndex) ? 
                    parentContent.children : parentContent
                 );
            }, 
@@ -141,7 +141,7 @@ class Technotes extends React.Component {
         )
         
         let currentPageFullPath = ''
-        if (currentPage != null && currentPage != undefined && currentPage != this.state.contents) {
+        if (currentPage != null && currentPage !== undefined && currentPage !== this.state.contents) {
             currentPageFullPath = currentPage.path;
         }
 
