@@ -28,7 +28,6 @@
 }
 
 .App-logo {
-  grid-area: main;
   content: "KS";
   color: #ffffff;
   margin-left: 2.5rem;
@@ -44,6 +43,7 @@
 }
 
 .App-content {
+  grid-area: main;
   display: flex;
   flex-direction: column;
   background-color: inherit;
