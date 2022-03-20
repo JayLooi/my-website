@@ -12,7 +12,9 @@ const background = [
                 endDate: 'Present', 
                 elaborations: [
                     'Software developer in functional safety feature for ECU. ', 
-                    'Analyse software issues reported by tester as well as customer, and provide feasible solutions. '
+                    'Analyse software issues reported by tester as well as customer, and provide feasible solutions. ', 
+                    'Automate repetitive process in software development with Python script. ', 
+                    'Port over legacy code to AUTOSAR architecture. '
                 ]
             }, 
 

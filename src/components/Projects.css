@@ -1,25 +1,24 @@
 .Projects-main {
     background-color: inherit;
     display: flex;
+    flex-direction: column;
     width: 100%;
     height: 100%;
-    flex-wrap: wrap;
-    flex-direction: row;
+    align-items: center;
     justify-content: center;
     color: #ffffff;
-    padding-bottom: 200px;
-    padding-top: 50px;
 }
 
 .Projects-item-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 30%;
-    margin: 20px;
+    width: 40%;
+    margin: 2em;
     padding: 2%;
     background: #393a3b;
     border-radius: 10px;
+    box-sizing: border-box;
 }
 
 .Projects-title {
@@ -37,15 +36,26 @@
     border-bottom: solid 1px cyan;
 }
 
-@media only screen and (max-width: 700px) {
-    .Projects-main {
-        flex-direction: column;
-        align-items: center;
+@media only screen and (max-width: 1400px) {
+    .Projects-item-container {
+        width: 45%;
     }
+}
 
+@media only screen and (max-width: 1200px) {
+    .Projects-item-container {
+        width: 50%;
+    }
+}
+
+@media only screen and (max-width: 980px) {
+    .Projects-item-container {
+        width: 65%;
+    }
+}
+
+@media only screen and (max-width: 700px) {
     .Projects-item-container {
         width: 90%;
-        margin: 0;
-        margin-bottom: 20px;
     }
 }
