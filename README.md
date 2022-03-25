@@ -14,5 +14,6 @@ Built using modern Javascript, JSX and CSS, based on [create-react-app](https://
 - [x] Technotes
 
 ### Improvements
+- [ ] Implement exceptions handling
 - [ ] Separate data from UI components
 - [ ] Refactor code to split reusable part as a module
